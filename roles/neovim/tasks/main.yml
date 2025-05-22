@@ -1,0 +1,52 @@
+---
+- name: Install Neovim (Debian/Ubuntu)
+  apt:
+    name:
+      - neovim
+    state: present
+    update_cache: yes
+    when: ansible_os_family == 'Debian'
+
+- name: Install Neovim (CentOS)
+  dnf:
+    name:
+      - neovim
+    state: present
+  when: ansible_os_family == 'CentOS'
+
+- name: Install Neovim (OpenSUSE)
+  zypper:
+    name:
+      - neovim
+  state: present
+  when: ansible_os_family == 'OpenSUSE'
+
+- name: Install python3 Neovim package
+  pip:
+    name:
+      - pynvim
+    state: present
+
+
+- name: Create LazyVim starter structure
+  block:
+    - name: Remove existing neovim config
+      file:
+        path: "{{ansible_env.HOME}}/.config/nvim"
+        state: absent
+
+- name: Clone LazyVim starter
+  git:
+    repo: https://github.com/LazyVim/starter
+    dest: "{{ ansible_env.HOME }}/.config/nvim"
+
+- name: Remove Neovim .git folder
+  file:
+    path: "{{ansible_env.HOME }}/.config/nvim/.git"
+    state: absent
+
+- name: Install LazyVim
+  command: nvim --headless "+Lazy! sync" +qa
+  environment:
+    PATH: "{{ ansible_env.PATH }}"
+    HOME: "{{ ansible_env.HOME }}"

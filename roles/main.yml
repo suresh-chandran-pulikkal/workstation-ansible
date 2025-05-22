@@ -1,0 +1,4 @@
+---
+
+- name: Include distro-specific package setup
+  include_tasks: "{{ ansible_os_family|lower }}.yml"

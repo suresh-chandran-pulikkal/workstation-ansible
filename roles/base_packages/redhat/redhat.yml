@@ -1,0 +1,23 @@
+--- 
+- name: Install EPEL repo
+  dnf:
+    name: epel-release
+    state: present
+  when: ansible_distribution == "CentOS"
+
+
+- name: Install PRM packages
+  dnf:
+    name:
+      - git 
+      - curl 
+      - fzf
+      - ripgrep
+      - fd-find
+      - python3-pip
+      - make  
+      - gcc 
+      - pssh
+      - openssh-clients
+      - unzip
+  state: present

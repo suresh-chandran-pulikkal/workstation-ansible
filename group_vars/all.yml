@@ -1,0 +1,14 @@
+--- 
+#common variables
+user_home: "{{ ansible_env.HOME }}"
+config_dir: "{{user_home}}"
+
+# distro specific overrides
+distro_paths:
+  Debian:
+    zshrc_path: "{{ user_home }}/.zshrc"
+  Redhat:
+    zshrc_path: "{{ user_home }}/.zshrc"
+  Suse:
+    zshrc_path: "{{ user_home }}/.zshrc"
+
