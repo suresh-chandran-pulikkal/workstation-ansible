@@ -1,0 +1,9 @@
+---
+- name: Include OS-specific variables
+  include_vars: "{{ ansible_os_family | lower }}.yml"
+  ignore_errors: false
+
+- name: Install base packages
+  package:
+    name: "{{ base_packages }}"
+    state: present

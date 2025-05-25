@@ -1,0 +1,10 @@
+base_packages:
+    - git
+    - curl
+    - wget
+    - make
+    - gcc
+    - unzip
+    - ripgrep
+    - fd
+    - rsync

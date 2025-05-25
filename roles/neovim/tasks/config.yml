@@ -1,0 +1,35 @@
+---
+- name: Ensures custom config directory exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ config_user }}"
+    group: "{{ config_user }}"
+  loop:
+    - "{{ nvim_custom_configs_d }}"
+    - "{{ nvim_custom_plugins_d }}"
+
+- name: Check if configs source folder exists
+  stat:
+    path: "{{ nvim_custom_configs_s }}"
+  register: config_s
+
+- name: Deploy nvim config custom files
+  copy:
+    src: "{{ nvim_custom_configs_s }}"
+    dest: "{{ nvim_custom_configs_d }}"
+    remote_src: true
+  when: config_s.stat.exists
+
+- name: Check if plugins source folder exists
+  stat:
+    path: "{{ nvim_custom_plugins_s }}"
+  register: plugins_s 
+
+- name: Deploy nvim plugins custom files
+  copy:
+    src: "{{ nvim_custom_plugins_s }}"
+    dest: "{{ nvim_custom_plugins_d }}"
+    remote_src: true
+  when: plugins_s.stat.exists

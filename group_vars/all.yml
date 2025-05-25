@@ -1,14 +1,22 @@
---- 
-#common variables
-user_home: "{{ ansible_env.HOME }}"
-config_dir: "{{user_home}}"
+---
+# group_vars/all.yml
+# Common variables
+config_user: "{{ config_user_id | default(lookup('env', 'USER')) }}"
+user_home: "{{ lookup('env', 'HOME') }}"
+config_dir: "{{ user_home }}/.config"
 
-# distro specific overrides
-distro_paths:
-  Debian:
-    zshrc_path: "{{ user_home }}/.zshrc"
-  Redhat:
-    zshrc_path: "{{ user_home }}/.zshrc"
-  Suse:
-    zshrc_path: "{{ user_home }}/.zshrc"
+# Neovim variables
+nvim_custom_configs_s : "{{ playbook_dir }}/roles/neovim/files/config/custom/"
+nvim_custom_plugins_s : "{{ playbook_dir }}/roles/neovim/files/plugins/custom/"
+nvim_custom_configs_d : "{{ config_dir }}/nvim/lua/config/custom/"
+nvim_custom_plugins_d : "{{ config_dir }}/nvim/lua/plugins/custom/"
 
+# Debugging section
+debug_vars:
+  - config_user
+  - user_home
+  - config_dir
+  - nvim_custom_configs_s
+  - nvim_custom_plugins_s
+  - nvim_custom_plugins_d
+  - nvim_custom_configs_d

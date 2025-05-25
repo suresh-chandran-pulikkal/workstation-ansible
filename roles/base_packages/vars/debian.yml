@@ -1,0 +1,10 @@
+base_packages:
+  - git
+  - curl
+  - wget
+  - make
+  - build-essential
+  - unzip
+  - ripgrep
+  - fd-find
+

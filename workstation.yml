@@ -1,0 +1,18 @@
+---
+- name: Configure workstation
+  hosts: workstations
+  gather_facts: true
+
+  vars_files:
+      - group_vars/all.yml
+  roles:
+      - base_packages
+      - neovim
+
+  tasks: 
+    - name: Debug variables
+      debug:
+        msg:
+          - "config_user: {{ config_user }}"
+          - "user_home: {{ user_home }}"
+          - "config_dir: {{ config_dir }}"
