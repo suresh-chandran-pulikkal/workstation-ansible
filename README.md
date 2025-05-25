@@ -1,4 +1,4 @@
-# **Workstation Ansible Setup**
+# **Workstation setup using Ansible**
 Automated **development workstation** configuration using **Ansible**.
 
 ## 📌 **Features**
