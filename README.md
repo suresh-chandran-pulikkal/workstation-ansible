@@ -12,20 +12,20 @@ Automated **development workstation** configuration using **Ansible**.
 git clone https://github.com/suresh-chandran-pulikkal/workstation-ansible.git
 cd workstation-ansible
 ```
-### **2. Install Ansible
+### **2. Install Ansible**
 Ensure Ansible is installed:
 ```sh
 sudo apt install ansible  # Debian-based
 sudo dnf install ansible  # Fedora-based
 sudo zypper install ansible  # openSUSE
 ```
-### **3. Run the Playbook
+### **3. Run the Playbook**
 ```sh
 ansible-playbook workstation.yml --ask-become-pass
 ```
 This will configure the workstation automatically.
 
-## ⚙ **Customization
+## ⚙ **Customization**
 ```sh
 Modify group_vars/all.yml to adjust settings:
 nvim_custom_configs_s: "~/.config/nvim/lua/config/custom/"
@@ -33,6 +33,17 @@ nvim_custom_plugins_s: "~/.config/nvim/lua/plugins/custom/"
 ```
 
 Change shell preferences, dotfiles, and more as needed.
+
+## ✅ **Checklist**
+
+- [x] Base OS packages
+- [x] Neovim
+- [x] LazyVim
+- [x] Neovim Plugins
+- [x] Ansible/Yaml LSP, Linters, Snippets
+- [ ] Dotfiles
+- [ ] Tmux
+- [ ] Shell Configuration
 
 ❓ Troubleshooting
 If something doesn’t work:
