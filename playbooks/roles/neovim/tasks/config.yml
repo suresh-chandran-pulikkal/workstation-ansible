@@ -1,0 +1,39 @@
+---
+- name: Ensures custom config directory exists
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ nvim_user }}"
+    group: "{{ nvim_user }}"
+    mode: '0755'
+  loop:
+    - "{{ configs.dest }}"
+    - "{{ plugins.dest }}"
+
+- name: Check if config source directory exists
+  stat:
+    path: "{{ configs.src }}"
+  register: config_src_status
+  changed_when: false
+
+- name: Sync config custom files (if any exists)
+  synchronize:
+    src: "{{ configs.src }}/"
+    dest: "{{ configs.dest }}/"
+    recursive: yes
+    owner: yes
+  when: config_src_status.stat.exists and config_src_status.stat.isdir
+
+- name: Check if plugins source directory exists
+  stat:
+    path: "{{ plugins.src }}"
+  register: plugins_src_status
+  changed_when: false
+
+- name: Deploy plugins custom files (if any exists)
+  synchronize:
+    src: "{{ plugins.src }}"
+    dest: "{{ plugins.dest }}"
+    recursive: yes
+    owner: yes
+  when: plugins_src_status.stat.exists and plugins_src_status.stat.isdir

@@ -4,6 +4,6 @@
   ignore_errors: false
 
 - name: Install base packages
-  package:
+  ansible.builtin.package:
     name: "{{ base_packages }}"
     state: present

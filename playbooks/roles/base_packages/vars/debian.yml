@@ -7,4 +7,4 @@ base_packages:
   - unzip
   - ripgrep
   - fd-find
-
+  - neovim

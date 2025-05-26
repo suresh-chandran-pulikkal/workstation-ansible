@@ -1,0 +1,10 @@
+---
+- name: Configure workstation
+  hosts: workstations
+  gather_facts: true
+
+  vars:
+    config_user : "{{ lookup('env','USER') }}"
+  roles:
+    - role: neovim
+      tags: neovim

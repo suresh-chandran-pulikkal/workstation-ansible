@@ -1,0 +1,66 @@
+---
+- name: Check if nvim config exists
+  stat:
+    path: "{{ nvim_config_dir }}/nvim"
+  register: nvim_config_status
+  changed_when: false
+
+- name: Backup existing nvim config if enabled and exists
+  block:
+    - name: Create backup directory
+      ansible.builtin.file:
+        path: "{{ nvim_config_dir }}/nvim.bak"
+        state: directory
+        mode: '0755'
+    
+    - name: Copy existing config to backup
+      become: true
+      synchronize:
+        src: "{{ nvim_config_dir }}/nvim/"
+        dest: "{{ nvim_config_dir }}/nvim.bak/"
+        recursive: yes
+        owner: yes
+    - name: remove existing nvim directory
+      ansible.builtin.file:
+        path: "{{ nvim_config_dir }}/nvim/"
+        state: absent
+  when:
+    - backup_nvim | default(true) | bool
+    - nvim_config_status.stat.exists
+  rescue:
+    - name: Backup failed warning
+      debug:
+        msg: "NVim config backup failed, continuing with installation"
+      changed_when: false
+- name: Install Neovim and dependencies (alternative)
+  block:
+    - name: Check if Neovim is already installed
+      command: which nvim
+      register: nvim_check
+      ignore_errors: yes
+      changed_when: false
+    
+    - name: Install packages if needed
+      package:
+        name:
+          - neovim
+          - git
+          - make
+        state: present
+      when: nvim_check.rc != 0
+
+
+- name: Check LazyVim repo availability
+  ansible.builtin.uri:
+    url: "{{ lazyvim_repo }}"
+    method: GET
+  register: lazyvim_repo_status
+  ignore_errors: true
+
+- name: Install LazyVim starter
+  ansible.builtin.git:
+    repo: "{{ lazyvim_repo }}"
+    dest: "{{ nvim_config_dir }}/nvim"
+    version: main
+    update: yes
+    force: yes

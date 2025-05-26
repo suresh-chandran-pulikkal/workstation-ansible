@@ -3,7 +3,9 @@ base_packages:
     - curl
     - wget
     - make
-    - gcc 
+    - gcc
     - unzip
     - ripgrep
-    - fd-find
+    - fd
+    - rsync
+    - neovim

@@ -1,0 +1,6 @@
+---
+- name: Verify Neovim works
+  command: nvim --version
+  register: nvim_version
+  changed_when: false
+  failed_when : "nvim_version.rc !=0 "
