@@ -10,3 +10,5 @@
       tags: base_packages
     - role: neovim
       tags: neovim
+    - role: setup-tmux
+      tags: setup-tmux

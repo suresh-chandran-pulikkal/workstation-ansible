@@ -10,3 +10,5 @@ base_packages:
     - fd
     - rsync
     - neovim
+    - npm 
+    - python3-pip

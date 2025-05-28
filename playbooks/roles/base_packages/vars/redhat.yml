@@ -9,3 +9,5 @@ base_packages:
     - ripgrep
     - fd-find
     - neovim
+    - npm
+    - python3-pip

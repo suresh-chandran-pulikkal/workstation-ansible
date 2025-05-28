@@ -1,6 +1,6 @@
 ---
 - name: Check if nvim config exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ nvim_config_dir }}/nvim"
   register: nvim_config_status
   changed_when: false
@@ -12,15 +12,14 @@
         path: "{{ nvim_config_dir }}/nvim.bak"
         state: directory
         mode: '0755'
-    
     - name: Copy existing config to backup
       become: true
       synchronize:
         src: "{{ nvim_config_dir }}/nvim/"
         dest: "{{ nvim_config_dir }}/nvim.bak/"
-        recursive: yes
-        owner: yes
-    - name: remove existing nvim directory
+        recursive: true
+        owner: true
+    - name: Remove existing nvim directory
       ansible.builtin.file:
         path: "{{ nvim_config_dir }}/nvim/"
         state: absent
@@ -29,26 +28,37 @@
     - nvim_config_status.stat.exists
   rescue:
     - name: Backup failed warning
-      debug:
+      ansible.builtin.debug:
         msg: "NVim config backup failed, continuing with installation"
       changed_when: false
+
 - name: Install Neovim and dependencies (alternative)
   block:
-    - name: Check if Neovim is already installed
-      command: which nvim
+    - name: Check if Neovim is installed
+      ansible.builtin.command: which nvim
       register: nvim_check
-      ignore_errors: yes
+      ignore_errors: true
       changed_when: false
-    
-    - name: Install packages if needed
-      package:
+    - name: Ensure Snap is installed (for Debian systems)
+      ansible.builtin.package:
+        name: snapd
+        state: present
+      when: ansible_facts['distribution'] == "Debian" and nvim_check.rc != 0
+    - name: Install Neovim using Snap in Debian
+      community.general.snap:
+        name: neovim
+        classic: true
+      when: ansible_facts['distribution'] == "Debian" and nvim_check.rc != 0
+
+    - name: Install Neovim using the package manager (non-Debian systems)
+      ansible.builtin.package:
         name:
-          - neovim
+          - Neovim
           - git
           - make
         state: present
-      when: nvim_check.rc != 0
-
+      when: ansible_facts['distribution'] != "Debian" and nvim_check.rc != 0
+      become: true
 
 - name: Check LazyVim repo availability
   ansible.builtin.uri:
@@ -62,5 +72,5 @@
     repo: "{{ lazyvim_repo }}"
     dest: "{{ nvim_config_dir }}/nvim"
     version: main
-    update: yes
-    force: yes
+    update: true
+    force: true

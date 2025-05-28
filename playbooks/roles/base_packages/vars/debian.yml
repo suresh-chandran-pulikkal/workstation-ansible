@@ -1,6 +1,7 @@
 base_packages:
   - git
-  - which
+    #  - which # which is found in debianutils package in Debian
+  - debianutils
   - curl
   - wget
   - make
@@ -9,3 +10,5 @@ base_packages:
   - ripgrep
   - fd-find
   - neovim
+  - npm
+  - python3-pip

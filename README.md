@@ -6,6 +6,11 @@ Automated **development workstation** configuration using **Ansible**.
 - Sets up **LazyVim**, **Tmux plugins**, and shell environments like **Fish/Zsh**.
 - Automates **dotfile management** and workflow optimizations.
 
+## 📝 **Requirements**
+
+- Internet connection
+- User must have permissions to install packages and run commands as root.
+
 ## 🚀 **Installation**
 ### **1. Clone the Repository**
 ```sh
@@ -21,7 +26,7 @@ sudo zypper install ansible  # openSUSE
 ```
 ### **3. Run the Playbook**
 ```sh
-ansible-playbook workstation.yml --ask-become-pass
+ansible-playbook setup-workstation.yml
 ```
 This will configure the workstation automatically.
 
@@ -40,12 +45,14 @@ Here’s your checklist **formatted as a table** for better readability:
 
 | **Features**                  | **Status**      |
 |--------------------------------|---------------|
-| Base OS packages               | ✅ Completed  |
+| Base OS packages for development               | ✅ Completed  |
 | Neovim                         | ✅ Completed  |
 | LazyVim                        | ✅ Completed  |
+| Mason| ✅ Completed  |
 | Neovim Plugins                 | ✅ Completed  |
-| Ansible/yaml LSP, Linters, Snippets | ✅ Completed  |
-| Dotfiles                       | ☐ Not completed |
+| AI/ML Plugins| ✅ Completed  |
+| LSP, Formateter & Snippets for development (Ansible, Docker, Python, Shellscript, Lua)| ✅ Completed  |
+| Dotfiles (fish, bash )                       | ☐ Not completed |
 | Tmux                           | ☐ Not completed |
 | Shell Configuration            | ☐ Not completed |
 
