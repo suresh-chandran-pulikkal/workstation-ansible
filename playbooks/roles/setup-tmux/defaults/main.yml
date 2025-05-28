@@ -1,0 +1,14 @@
+---
+# Variables for tmux 
+tmux_user: "{{ ansible_env.USER }}"
+tmux_group: "{{ ansible_env.USER }}"
+tmux_conf_dir: "{{ ansible_env.HOME }}/.tmux"
+user_home: "{{ ansible_env.HOME }}"
+
+src:
+  tmux_conf: "{{ playbook_dir }}/files/tmux/tmux.conf"
+  tmux_conf_local: "{{ playbook_dir }}/files/tmux/local.conf"
+
+dest:
+tmux_conf: "{{ tmux_conf_dir }}/tmux.conf"
+tmux_conf_local: "{{ tmux_conf_dir }}/local.conf"

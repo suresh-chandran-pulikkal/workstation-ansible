@@ -6,7 +6,5 @@
   vars:
     config_user : "{{ lookup('env','USER') }}"
   roles:
-    - role: base_packages
-      tags: base_packages
-    - role: neovim
-      tags: neovim
+    - role: setup-tmux
+      tags: tmux-tmux

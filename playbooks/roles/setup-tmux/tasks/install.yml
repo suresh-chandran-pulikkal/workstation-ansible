@@ -1,0 +1,17 @@
+---
+- name: Install tmux 
+ansible.builtin.package:
+  name: tmux
+  state: present
+  update_cache: yes
+  cache_valid_time: 3600
+
+  - name: Validate tmux installation
+    ansible.builtin.command: tmux -V
+    register: tmux_version
+    changed_when: false
+
+  - name: Fail if tmux is not installed
+    ansible.builtin.fail:
+      msg: tmux is not installed
+    when: tmux_version.rc != 0

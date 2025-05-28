@@ -1,5 +1,6 @@
 base_packages:
   - git
+  - which
   - curl
   - wget
   - make

@@ -1,7 +1,9 @@
 ---
-- name: Configure workstation
+- name: install base packages
   hosts: workstations
   gather_facts: true
+  become: true
+  become_user: root
 
   vars_files:
       - group_vars/all.yml
