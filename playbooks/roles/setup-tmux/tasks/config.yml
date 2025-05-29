@@ -1,30 +1,16 @@
 ---
-- name: Create tmux config directory if it doesn't exist
+- name: Deploy tmux config files from git repo
+  git:
+    repo: "{{ tmux_config_repo }}"
+    dest: "{{ tmux_config_dir }}"
+
+- name: Create symlink for tmux config files
   file:
-    path: "{{ tmux_config_dir }}"
-    state: directory
-    owner: "{{ tmux_user }}"
-    group: "{{ tmux_group }}"
-    mode: 0755
-
-- name: Copy tmux config files
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: "{{ tmux_user }}"
-    group: "{{ tmux_group }}"
-    mode: 0644
-  with_items:
-    - { src: "{{ src.tmux_conf }}", dest: "{{ dest.tmux_conf }}" }
-    - { src: "{{ src.tmux_conf_local }}", dest: "{{ dest.tmux_conf_local }}" }
-
-- name: create symlink for tmux config files
-   file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
     owner: "{{ tmux_user }}"
     group: "{{ tmux_group }}"
-    with_items:
-      - { src: "{{ dest.tmux_conf }}", dest: "{{ user_home }}/.tmux.conf" }"
-      - { src: "{{ dest.tmux_conf_local }}", dest: "{{ user_home }}/.tmux.conf.local" }"
+  with_items:
+    - { src: "{{ src.tmux_conf }}", dest: "{{ dest.tmux_conf }}" }
+    - { src: "{{ src.tmux_conf_local }}", dest: "{{ dest.tmux_conf_local }}" }

@@ -6,9 +6,9 @@ tmux_conf_dir: "{{ ansible_env.HOME }}/.tmux"
 user_home: "{{ ansible_env.HOME }}"
 
 src:
-  tmux_conf: "{{ playbook_dir }}/files/tmux/tmux.conf"
-  tmux_conf_local: "{{ playbook_dir }}/files/tmux/local.conf"
+  tmux_conf: "{{ user_home }}/.tmux/tmux.conf"
+  tmux_conf_local: "{{ user_home }}/.tmux/local.conf"
 
 dest:
-tmux_conf: "{{ tmux_conf_dir }}/tmux.conf"
-tmux_conf_local: "{{ tmux_conf_dir }}/local.conf"
+tmux_conf: "{{ user_home }}/.tmux.conf"
+tmux_conf_local: "{{ user_home }}/.tmux.conf.local"

@@ -7,4 +7,4 @@
     config_user : "{{ lookup('env','USER') }}"
   roles:
     - role: setup-tmux
-      tags: tmux-tmux
+      tags: setup-tmux
