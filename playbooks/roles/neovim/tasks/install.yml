@@ -43,34 +43,20 @@
       ansible.builtin.package:
         name: snapd
         state: present
-      when: ansible_facts['distribution'] == "Debian" and nvim_check.rc != 0
+      when: ansible_facts['os_family'] == "Debian" 
     - name: Install Neovim using Snap in Debian
       community.general.snap:
-        name: neovim
+        name: nvim
         classic: true
-      when: ansible_facts['distribution'] == "Debian" and nvim_check.rc != 0
-
+      when: ansible_facts['os_family'] == "Debian" and nvim_check.rc != 0
     - name: Install Neovim using the package manager (non-Debian systems)
       ansible.builtin.package:
         name:
-          - Neovim
+          - neovim
           - git
           - make
         state: present
-      when: ansible_facts['distribution'] != "Debian" and nvim_check.rc != 0
-      become: true
+      when: ansible_facts['os_family'] != "Debian" and nvim_check.rc != 0
+  become: true
 
-- name: Check LazyVim repo availability
-  ansible.builtin.uri:
-    url: "{{ lazyvim_repo }}"
-    method: GET
-  register: lazyvim_repo_status
-  ignore_errors: true
 
-- name: Install LazyVim starter
-  ansible.builtin.git:
-    repo: "{{ lazyvim_repo }}"
-    dest: "{{ nvim_config_dir }}/nvim"
-    version: main
-    update: true
-    force: true

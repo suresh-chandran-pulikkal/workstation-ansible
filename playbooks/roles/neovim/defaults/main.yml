@@ -4,8 +4,7 @@
 nvim_user: "{{ lookup('env', 'USER') }}"
 nvim_home: "{{ lookup('env', 'HOME') }}"
 nvim_config_dir: "{{ nvim_home }}/.config"
-
-lazyvim_repo: "https://github.com/LazyVim/starter"
+my_neovim_repo: "https://github.com/suresh-chandran-pulikkal/customized-neovim"
 # Custom config files paths 
 configs:
   src: "{{ playbook_dir }}/../files/neovim/config/custom/"

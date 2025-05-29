@@ -9,6 +9,6 @@ base_packages:
   - unzip
   - ripgrep
   - fd-find
-  - neovim
+    #- neovim # lazy.vim won't work with old nvim, Need to use snapd to get latest version of nvim.
   - npm
   - python3-pip

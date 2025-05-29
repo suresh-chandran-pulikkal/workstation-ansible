@@ -3,7 +3,7 @@
   include_tasks: install.yml
   tags: install
 
-- name: Include configuration tasks
+- name: Include configuration tasks 
   include_tasks: config.yml
   tags: config
 
