@@ -1,15 +1,19 @@
 ---
-- name: Install tmux 
-ansible.builtin.package:
-  name: tmux
-  state: present
+- name: Install and validate tmux
+  become: true
+  
+  tasks:
+    - name: Install tmux
+      ansible.builtin.package:
+        name: tmux
+        state: present
 
-  - name: Validate tmux installation
-    ansible.builtin.command: tmux -V
-    register: tmux_version
-    changed_when: false
+    - name: Validate tmux installation
+      ansible.builtin.command: tmux -V
+      register: tmux_version
+      changed_when: false
 
-  - name: Fail if tmux is not installed
-    ansible.builtin.fail:
-      msg: tmux is not installed
-    when: tmux_version.rc != 0
+    - name: Fail if tmux is not installed
+      ansible.builtin.fail:
+        msg: "tmux is not installed"
+      when: tmux_version.rc != 0
