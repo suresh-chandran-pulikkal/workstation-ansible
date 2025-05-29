@@ -17,7 +17,7 @@ This repository provides a **fully automated, optimized setup** for managing dev
 ✅ **Scalability** – Adapt environments dynamically for **development, testing, and production**.  
 ✅ **Seamless Workflow** – Everything works **out-of-the-box**, reducing troubleshooting time.  
 
-🔧 ** Automation isn’t just a process—it’s a mindset. ** 🧠💡 
+🔧 **Automation isn’t just a process—it’s a mindset!** 🧠💡 
 
 
 
