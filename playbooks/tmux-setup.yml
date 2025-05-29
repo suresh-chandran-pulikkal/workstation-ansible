@@ -1,0 +1,10 @@
+---
+- name: Setup tmux
+  hosts: workstations
+  gather_facts: true
+
+  vars:
+    config_user : "{{ lookup('env','USER') }}"
+  roles:
+    - role: setup-tmux
+      tags: setup-tmux
