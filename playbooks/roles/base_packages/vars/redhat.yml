@@ -11,3 +11,4 @@ base_packages:
     - neovim
     - npm
     - python3-pip
+    - stow

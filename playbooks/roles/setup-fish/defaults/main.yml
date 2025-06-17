@@ -1,0 +1,14 @@
+---
+# Variables for fish
+fish_user: "{{ ansible_env.USER }}"
+fish_group: "{{ ansible_env.USER }}"
+fish_config_dir: "{{ ansible_env.HOME }}/.fish"
+user_home: "{{ ansible_env.HOME }}"
+fish_config_repo: "https://github.com/suresh-chandran-pulikkal/.fish.git"
+src:
+  fish_conf: "{{ user_home }}/.fish/.fish.conf"
+  fish_conf_local: "{{ user_home }}/.fish/.fish.conf.local"
+
+dest:
+  fish_conf: "{{ user_home }}/.fish.conf"
+  fish_conf_local: "{{ user_home }}/.fish.conf.local"

@@ -1,0 +1,18 @@
+---
+- name: Deploy tmux config files from git repo
+  git:
+    repo: "{{ tmux_config_repo }}"
+    dest: "{{ tmux_config_dir }}"
+    force: yes
+
+- name: Create symlink for tmux config files
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+    owner: "{{ tmux_user }}"
+    group: "{{ tmux_group }}"
+  with_items:
+    - { src: "{{ src.tmux_conf }}", dest: "{{ dest.tmux_conf }}" }
+    - { src: "{{ src.tmux_conf_local }}", dest: "{{ dest.tmux_conf_local }}" }

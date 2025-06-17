@@ -1,14 +1,14 @@
 ---
-# Variables for tmux 
+# Variables for tmux
 tmux_user: "{{ ansible_env.USER }}"
 tmux_group: "{{ ansible_env.USER }}"
-tmux_conf_dir: "{{ ansible_env.HOME }}/.tmux"
+tmux_config_dir: "{{ ansible_env.HOME }}/.config/tmux"
 user_home: "{{ ansible_env.HOME }}"
-
+tmux_config_repo: "https://github.com/suresh-chandran-pulikkal/.tmux.git"
 src:
-  tmux_conf: "{{ user_home }}/.tmux/tmux.conf"
-  tmux_conf_local: "{{ user_home }}/.tmux/local.conf"
+  tmux_conf: "{{ user_home }}/.tmux/.tmux.conf"
+  tmux_conf_local: "{{ user_home }}/.tmux/.tmux.conf.local"
 
 dest:
-tmux_conf: "{{ user_home }}/.tmux.conf"
-tmux_conf_local: "{{ user_home }}/.tmux.conf.local"
+  tmux_conf: "{{ user_home }}/.tmux.conf"
+  tmux_conf_local: "{{ user_home }}/.tmux.conf.local"

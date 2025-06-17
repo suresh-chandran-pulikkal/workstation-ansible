@@ -1,0 +1,6 @@
+---
+- name: Verify Tmux works
+  command: tmux -V
+  register: tmux_version
+  changed_when: false
+  failed_when : "tmux_version.rc !=0 "
