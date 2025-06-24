@@ -56,12 +56,13 @@ Change shell preferences, dotfiles, and more as needed.
 
 | **Features**                  | **Status**      |
 |--------------------------------|---------------|
-| Base OS packages for development               | ✅ Completed  |
+| Base OS packages and tools for Linux/SRE/DevOps | ✅ Completed  |
 | Neovim                         | ✅ Completed  |
 | LazyVim                        | ✅ Completed  |
 | Mason| ✅ Completed  |
 | Neovim Plugins                 | ✅ Completed  |
 | AI/ML Plugins| ✅ Completed  |
+| Packages for Docker and Kubernetes development and management | ✅ Completed  |
 | LSP, Formateter & Snippets for development (Ansible, Docker, Python, Shellscript, Lua)| ✅ Completed  |
 | Tmux & Configurations          | ✅ Completed  |
 | Dotfiles (fish, bash )                       | ☐ Not completed |
