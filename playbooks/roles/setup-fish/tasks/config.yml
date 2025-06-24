@@ -1,18 +1,18 @@
 ---
-- name: Deploy tmux config files from git repo
+- name: Deploy fish config files from git repo
   git:
-    repo: "{{ tmux_config_repo }}"
-    dest: "{{ tmux_config_dir }}"
+    repo: "{{ fish_config_repo }}"
+    dest: "{{ fish_config_dir }}"
     force: yes
 
-- name: Create symlink for tmux config files
+- name: Create symlink for fish config files
   file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
     force: yes
-    owner: "{{ tmux_user }}"
-    group: "{{ tmux_group }}"
+    owner: "{{ fish_user }}"
+    group: "{{ fish_group }}"
   with_items:
-    - { src: "{{ src.tmux_conf }}", dest: "{{ dest.tmux_conf }}" }
-    - { src: "{{ src.tmux_conf_local }}", dest: "{{ dest.tmux_conf_local }}" }
+    - { src: "{{ src.fish_conf }}", dest: "{{ dest.fish_conf }}" }
+    - { src: "{{ src.fish_conf_local }}", dest: "{{ dest.fish_conf_local }}" }

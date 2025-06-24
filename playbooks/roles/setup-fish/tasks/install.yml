@@ -1,18 +1,18 @@
 ---
-- name: Install and validate tmux
+- name: Install and validate fish
   become: true
   tasks:
-    - name: Install tmux
+    - name: Install fish
       ansible.builtin.package:
-        name: tmux
+        name: fish
         state: present
 
-    - name: Validate tmux installation
-      ansible.builtin.command: tmux -V
-      register: tmux_version
+    - name: Validate fish installation
+      ansible.builtin.command: fish --version
+      register: fish_version
       changed_when: false
 
-    - name: Fail if tmux is not installed
+    - name: Fail if fish is not installed
       ansible.builtin.fail:
-        msg: "tmux is not installed"
-      when: tmux_version.rc != 0
+        msg: "fish is not installed"
+      when: fish_version.rc != 0

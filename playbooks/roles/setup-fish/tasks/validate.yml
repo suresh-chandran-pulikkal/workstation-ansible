@@ -1,6 +1,6 @@
 ---
-- name: Verify Tmux works
-  command: tmux -V
-  register: tmux_version
+- name: Verify fish works
+  command: fish --version
+  register: fish_version
   changed_when: false
-  failed_when : "tmux_version.rc !=0 "
+  failed_when : "fish_version.rc !=0 "
