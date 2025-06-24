@@ -13,3 +13,12 @@ base_packages:
   - npm
   - python3-pip
   - stow
+  - kubectl
+  - docker
+  - docker-compose
+  - helm
+  - helmfile
+  - helm-diff
+  - helm-docs
+  - helmfile-fish-completion
+  - helm-schema
