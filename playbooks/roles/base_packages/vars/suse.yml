@@ -6,19 +6,22 @@ base_packages:
     - make
     - gcc
     - unzip
-    - ripgrep
-    - fd
     - rsync
+    - python3-pip
+    - fd
     - neovim
     - npm 
-    - python3-pip
+    - ripgrep
     - stow
-    - kubectl
     - docker
     - docker-compose
-    - helm
-    - helmfile
-    - helm-diff
-    - helm-docs
-    - helmfile-fish-completion
-    - helm-schema
+    - fzf
+    - eza
+    - starship
+    #- kubectl
+    #- helm
+    #- helmfile
+    #- helm-diff
+    #- helm-docs
+    #- helmfile-fish-completion
+    #- helm-schema

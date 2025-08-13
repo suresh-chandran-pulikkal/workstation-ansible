@@ -1,18 +1,26 @@
----
-- name: Install and validate fish
+- name: Install fish
+  ansible.builtin.command: zypper -n install fish
+  # zypper:
+  #   name: fish
+  #   state: present
+  #   force: yes
+  register: install_result
   become: true
-  tasks:
-    - name: Install fish
-      ansible.builtin.package:
-        name: fish
-        state: present
 
-    - name: Validate fish installation
-      ansible.builtin.command: fish --version
-      register: fish_version
-      changed_when: false
+- name: Validate fish installation
+  ansible.builtin.shell: |
+    command -v fish && /usr/bin/fish --version
+  args:
+    executable: /bin/bash
+  register: fish_version
+  changed_when: false
+  ignore_errors: yes
 
-    - name: Fail if fish is not installed
-      ansible.builtin.fail:
-        msg: "fish is not installed"
-      when: fish_version.rc != 0
+- name: Fail if fish is not installed
+  ansible.builtin.fail:
+    msg: >
+      Failed to install fish. Zypper error:
+        Return code: {{ install_result.rc }}
+        Output: {{ install_result.stdout }}
+        Error output: {{ fish_version.stderr }}
+  when: fish_version.rc != 0 or install_result is failed
