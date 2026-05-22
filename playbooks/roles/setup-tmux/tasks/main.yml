@@ -1,12 +1,12 @@
 ---
 - name: Include installation tasks
-  include_tasks: install.yml
+  ansible.builtin.include_tasks: install.yml
   tags: install
 
-- name: Include configuration tasks 
-  include_tasks: config.yml
+- name: Include configuration tasks
+  ansible.builtin.include_tasks: config.yml
   tags: config
 
 - name: Include validation tasks
-  include_tasks: validate.yml
- 
+  ansible.builtin.include_tasks: validate.yml
+  tags: validate

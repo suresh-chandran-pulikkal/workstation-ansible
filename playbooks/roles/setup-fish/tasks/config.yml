@@ -1,21 +1,21 @@
 ---
-- name: Install starship shell promt
+- name: Install starship shell prompt
   ansible.builtin.package:
     name: starship
     state: present
-    force: yes
-  become: yes
+  become: true
   become_flags: '-E'
-  #ansible.builtin.shell: |
-  #  curl -sS https://starship.rs/install.sh | sh -s -- --yes
+  tags: [config]
 
 - name: Check if fish config exists
   ansible.builtin.stat:
     path: "{{ fish_config_dir }}"
   register: fish_config_status
   changed_when: false
+  tags: [config]
 
 - name: Backup existing fish config if enabled and exists
+  tags: [config]
   block:
     - name: Create backup directory
       ansible.builtin.file:
@@ -24,7 +24,7 @@
         mode: '0755'
     - name: Copy existing config to backup
       become: true
-      synchronize:
+      ansible.posix.synchronize:
         src: "{{ fish_config_dir }}/"
         dest: "{{ fish_config_dir }}.bak/"
         recursive: true
@@ -43,37 +43,30 @@
       changed_when: false
 
 - name: Deploy customised-fish config files from git
-  git:
+  ansible.builtin.git:
     repo: "{{ fish_config_repo }}"
     dest: "{{ fish_config_dir }}"
     force: true
     update: true
+  tags: [config]
 
 # Configure starship
 - name: Create symbolic link for starship config file
-  file:
+  ansible.builtin.file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
-    force: yes
+    force: true
     owner: "{{ starship_user }}"
     group: "{{ starship_group }}"
-  with_items:
+  loop:
     - { src: "{{ src.starship_conf }}", dest: "{{ dest.starship_conf }}" }
-
-    # - name: Add starship init to Fish config
-
-# - name: Set fish as default shell
-#   ansible.builtin.user:
-#     name: "{{ starship_user }}"
-#     shell: /usr/bin/fish
-#     append: yes
-#
+  tags: [config]
 
 - name: Set fish as default shell
-  ansible.builtin.shell: chsh -s /usr/bin/fish {{ starship_user }}
+  ansible.builtin.user:
+    name: "{{ starship_user }}"
+    shell: /usr/bin/fish
   become: true
-
-- name: Restart shell session
-  ansible.builtin.shell: "exec fish"
-  when: true
+  notify: shell changed
+  tags: [config]

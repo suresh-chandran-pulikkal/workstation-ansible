@@ -1,6 +1,7 @@
 ---
 - name: Verify Neovim works
-  command: nvim --version
+  ansible.builtin.command: nvim --version
   register: nvim_version
   changed_when: false
-  failed_when : "nvim_version.rc !=0 "
+  failed_when: nvim_version.rc != 0
+  tags: [validate]

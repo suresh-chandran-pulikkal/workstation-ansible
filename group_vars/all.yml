@@ -5,18 +5,13 @@ config_user: "{{ config_user_id | default(lookup('env', 'USER')) }}"
 user_home: "{{ lookup('env', 'HOME') }}"
 config_dir: "{{ user_home }}/.config"
 
-# Neovim variables
-nvim_custom_configs_s : "{{ playbook_dir }}/roles/neovim/files/config/custom/"
-nvim_custom_plugins_s : "{{ playbook_dir }}/roles/neovim/files/plugins/custom/"
-nvim_custom_configs_d : "{{ config_dir }}/nvim/lua/config/custom/"
-nvim_custom_plugins_d : "{{ config_dir }}/nvim/lua/plugins/custom/"
+# Repo URLs - override these to use your own forks
+my_neovim_repo: "https://github.com/suresh-chandran-pulikkal/customized-neovim"
+fish_config_repo: "https://github.com/suresh-chandran-pulikkal/fish-customised.git"
+tmux_config_repo: "https://github.com/suresh-chandran-pulikkal/tmux.git"
 
 # Debugging section
 debug_vars:
   - config_user
   - user_home
   - config_dir
-  - nvim_custom_configs_s
-  - nvim_custom_plugins_s
-  - nvim_custom_plugins_d
-  - nvim_custom_configs_d

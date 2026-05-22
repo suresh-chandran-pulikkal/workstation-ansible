@@ -1,6 +1,7 @@
 ---
-- name: Verify Tmux works
-  command: tmux -V
+- name: Verify tmux works
+  ansible.builtin.command: tmux -V
   register: tmux_version
   changed_when: false
-  failed_when : "tmux_version.rc !=0 "
+  failed_when: tmux_version.rc != 0
+  tags: [validate]

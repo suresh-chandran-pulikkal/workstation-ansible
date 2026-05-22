@@ -1,0 +1,5 @@
+---
+- name: Notify shell change
+  ansible.builtin.debug:
+    msg: "Default shell changed to fish. Log out and back in for the change to take effect."
+  listen: shell changed

@@ -1,7 +1,14 @@
 ---
 - name: Include OS-specific variables
-  include_vars: "{{ ansible_os_family | lower }}.yml"
+  ansible.builtin.include_vars: "{{ ansible_os_family | lower }}.yml"
   ignore_errors: false
+
+- name: Fail on unsupported OS family
+  ansible.builtin.fail:
+    msg: >
+      Unsupported OS family: {{ ansible_os_family }}.
+      Supported families: Debian, RedHat, Suse.
+  when: ansible_os_family | lower not in ['debian', 'redhat', 'suse']
 
 - name: Install base packages
   become: true

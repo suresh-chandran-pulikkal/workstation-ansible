@@ -1,15 +1,17 @@
-# roles/setup-tmux/tasks/main.yml
-- name: Install tmux using zypper
-  ansible.builtin.zypper:
+---
+- name: Install tmux
+  ansible.builtin.package:
     name: tmux
     state: present
   become: true
+  tags: [install]
 
 - name: Validate tmux installation
   ansible.builtin.command: /usr/bin/tmux -V
   register: tmux_version
   changed_when: false
-  ignore_errors: yes
+  ignore_errors: true
+  tags: [install]
 
 - name: Fail if tmux installation failed
   ansible.builtin.fail:
@@ -17,3 +19,4 @@
       tmux not installed. Exit code: {{ tmux_version.rc }},
       Error: {{ tmux_version.stderr }}
   when: tmux_version.rc != 0
+  tags: [install]
